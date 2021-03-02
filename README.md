@@ -12,6 +12,11 @@ go run main.go
 or
 make run
 
+# FrontEnd Application
+https://github.com/pricenton1/test-mekar-frontend
+And setting package.json
+"proxy": "http://localhost:8000"
+
 ## API Spec
 
 GET USERS
