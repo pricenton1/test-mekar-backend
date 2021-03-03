@@ -46,10 +46,12 @@ func (u UserUsecase) GetUserByID(id string) (*model.User, error) {
 }
 
 func (u UserUsecase) CreateNewUser(user *model.User) error {
+
 	err := utils.CheckEmpty(user.UserNIK, user.UserName, user.UserBirth, user.UserJob.JobID, user.UserEducation.EducationID)
 	if err != nil {
 		return errors.New("Some field is Empty")
 	}
+
 	error := u.userRepo.CreateNewUser(user)
 	if error != nil {
 		return errors.New("Some field is Empty")

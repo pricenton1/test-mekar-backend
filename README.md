@@ -15,11 +15,12 @@ make run
 ## API Spec
 
 GET USERS
+
     URL : http://localhost:8000/users?keyword=&page=0&limit=5
     HEADERS :
         key : token
         value :eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21LZXkiOiJSYWhhc2lhIiwiZXhwaXJlZEF0IjoiMjAyMS0wMy0wMSAwNzoyNjozNyIsIm5hbWUiOiJhbnRvbkBnbWFpbC5jb20ifQ.TBvcI3LUlChXi1zAPfFnjxSpyQj-d6Wr9mHEoI2rL5c
-    RESPONSE : {
+    RESPONSE :{
         "statusCode": 200,
         "message": "OK",
         "payload": [
@@ -86,29 +87,29 @@ GET USER BY ID
     }
 
 CREATE NEW USER
+
     URL : http://localhost:8000/users/register
     HEADERS :
         key : token
         value :eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21LZXkiOiJSYWhhc2lhIiwiZXhwaXJlZEF0IjoiMjAyMS0wMy0wMSAwNzoyNjozNyIsIm5hbWUiOiJhbnRvbkBnbWFpbC5jb20ifQ.TBvcI3LUlChXi1zAPfFnjxSpyQj-d6Wr9mHEoI2rL5c
-    BODY RAW :
-            {
-                "userNIK": "1234567891123",
-                "userName": "UJI COBA 2",
-                "userBirth": "2000-03-09",
-                "userJob": {
-                    "jobID": "8219c7cc-30bb-11eb-b405-c85b766bafe8"
-                },
-                "userEducation": {
-                    "educationID": "5df1331d-30bb-11eb-b405-c85b766bafe8"
-                }
-            }
-    RESPONSE :
-        {
-            "statusCode": 201,
-            "message": "Accepted"
+    BODY RAW :{
+        "userNIK": "1234567891123",
+        "userName": "UJI COBA 2",
+        "userBirth": "2000-03-09",
+        "userJob": {
+            "jobID": "8219c7cc-30bb-11eb-b405-c85b766bafe8"
+        },
+        "userEducation": {
+            "educationID": "5df1331d-30bb-11eb-b405-c85b766bafe8"
+        }
+    }
+    RESPONSE :{
+        "statusCode": 201,
+        "message": "Accepted"
         }
 
 UPDATE USER 
+
     URL : http://localhost:8000/users/update/dd3542db-2666-405b-9b99-291b99e637b1
     HEADERS :
         key : token
@@ -132,6 +133,7 @@ UPDATE USER
         }
 
 DELETE USER 
+
     URL : http://localhost:8000/users/delete/dd3542db-2666-405b-9b99-291b99e637b1
     HEADERS :
         key : token
@@ -143,6 +145,7 @@ DELETE USER
         }
 
 GET JOBS 
+
      URL : http://localhost:8000/jobs
     HEADERS :
         key : token
@@ -168,6 +171,7 @@ GET JOBS
         }
 
 GET EDUCATIONS
+
     URL : http://localhost:8000/educations
     HEADERS :
         key : token
@@ -208,7 +212,9 @@ GET EDUCATIONS
             ]
         }
 
+
 LOGIN ADMIN 
+
     URL : http://localhost:8000/account/login
     BODY RAW :
         {
@@ -230,6 +236,7 @@ LOGIN ADMIN
         }
 
 REGISTER ADMIN 
+
     URL : http://localhost:8000/account/register
     BODY RAW : 
         {
