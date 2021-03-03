@@ -24,6 +24,7 @@ func (u *AccountHandler) AccountAPI(r *mux.Router) {
 	account.HandleFunc("/login", u.Login).Methods(http.MethodPost)
 
 }
+
 func (u *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) {
 	var account model.Account
 	err := utils.JsonDecoder(&account, r)
