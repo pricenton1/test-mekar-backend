@@ -9,7 +9,6 @@ import (
 	"test-mekar-backend/utils"
 
 	"github.com/gorilla/mux"
-	"github.com/inact25/PickMyFood-BackEnd/masters/apis/middlewares"
 )
 
 type UserHandler struct {
@@ -30,7 +29,7 @@ func (u *UserHandler) UserAPI(r *mux.Router) {
 	users.HandleFunc("/delete/{id}", u.DeleteUser).Methods(http.MethodDelete)
 
 	etcRoute := r.PathPrefix("").Subrouter()
-	users.Use(middlewares.TokenValidationMiddleware)
+	users.Use(middleware.TokenValidationMiddleware)
 	etcRoute.HandleFunc("/jobs", u.ReadJob).Methods(http.MethodGet)
 	etcRoute.HandleFunc("/educations", u.ReadEducation).Methods(http.MethodGet)
 }

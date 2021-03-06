@@ -37,6 +37,6 @@ const (
 	DELETE_USER = `UPDATE m_user SET user_status=0 where id_user=?`
 
 	// AUTH QUERY
-	CREATE_ACCOUNT          = `INSERT INTO m_account(account_id,email,password) values (?,?,?)`
+	CREATE_ACCOUNT          = `INSERT INTO m_account(account_id,email,password,token) values (?,?,?,?)`
 	SELECT_ACCOUNT_BY_EMAIL = `SELECT * FROM m_account where email=?`
 )

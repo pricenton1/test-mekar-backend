@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 	"test-mekar-backend/utils"
 )
@@ -14,8 +14,8 @@ func TokenValidationMiddleware(next http.Handler) http.Handler {
 		} else {
 			_, err := utils.JwtDecoder(tokenValue)
 			if err != nil {
-				fmt.Println(err)
 				utils.ResponseWithoutPayload(w, http.StatusUnauthorized)
+				log.Print("Token Not Valid")
 			} else {
 				next.ServeHTTP(w, r)
 			}

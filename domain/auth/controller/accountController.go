@@ -34,6 +34,12 @@ func (u *AccountHandler) CreateAccount(w http.ResponseWriter, r *http.Request) {
 			w, http.StatusBadRequest)
 		return
 	}
+	token, err := utils.JwtEncoder(account.Email, "Rahasia")
+	if err != nil {
+		utils.ResponseWithoutPayload(w, http.StatusBadRequest)
+		return
+	}
+	account.Token = model.Token{Key: token}
 	err = u.accountUsecase.Register(&account)
 	log.Print(err)
 	if err != nil {

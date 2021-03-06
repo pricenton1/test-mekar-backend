@@ -60,7 +60,6 @@ func JwtDecoder(tokenString string) (jwt.MapClaims, error) {
 		}
 
 	} else {
-		fmt.Println(err)
 		return nil, err
 	}
 }

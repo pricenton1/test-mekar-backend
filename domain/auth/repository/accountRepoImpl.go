@@ -19,7 +19,7 @@ func (a authRepo) ReadAccountByEmail(email string) (*model.Account, error) {
 		return nil, err
 	}
 	defer stmt.Close()
-	err = stmt.QueryRow(email).Scan(&account.AccountID, &account.Email, &account.Password)
+	err = stmt.QueryRow(email).Scan(&account.AccountID, &account.Email, &account.Password, &account.Token.Key)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return &account, nil
@@ -42,7 +42,7 @@ func (a authRepo) CreateAccount(account *model.Account) error {
 		_ = tx.Rollback()
 		return err
 	}
-	_, err = stmt.Exec(accountID, account.Email, account.Password)
+	_, err = stmt.Exec(accountID, account.Email, account.Password, account.Token.Key)
 	if err != nil {
 		_ = tx.Rollback()
 		return err
