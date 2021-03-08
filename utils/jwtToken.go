@@ -3,7 +3,6 @@ package utils
 import (
 	"errors"
 	"fmt"
-	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -15,11 +14,11 @@ const (
 )
 
 func JwtEncoder(userName, customKey string) (string, error) {
-	expiredDate := time.Now().Add(time.Second * expiredPeriod)
+	// expiredDate := time.Now().Add(time.Second * expiredPeriod)
 	claims := jwt.MapClaims{
 		"name":      userName,
 		"customKey": customKey,
-		"expiredAt": expiredDate.Format(formatDateLayout),
+		// "expiredAt": expiredDate.Format(formatDateLayout),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -31,7 +30,7 @@ func JwtEncoder(userName, customKey string) (string, error) {
 	return tokenString, nil
 }
 
-func JwtDecoder(tokenString string) (jwt.MapClaims, error) {
+func JwtDecoder(tokenString, username string) (jwt.MapClaims, error) {
 	//Check payload token
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -41,25 +40,29 @@ func JwtDecoder(tokenString string) (jwt.MapClaims, error) {
 		return []byte(hmacSampleSecret), nil
 	})
 
+	claims := token.Claims.(jwt.MapClaims)
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		//fmt.Println(claims["name"], claims["customKey"], claims["expiredAt"])
-		expiredAt := claims["expiredAt"].(string)
-
-		t, err := time.Parse(formatDateLayout, expiredAt)
-		if err != nil {
-			return nil, err
+		fmt.Println(claims["name"], claims["customKey"])
+		if claims["name"] != username {
+			return nil, errors.New("Token Not Valid")
 		}
-		thisTimeString := time.Now().Format(formatDateLayout)
-		thisTime, _ := time.Parse(formatDateLayout, thisTimeString)
-		diffTime := t.Sub(thisTime).Seconds()
+		// expiredAt := claims["expiredAt"].(string)
+		// t, err := time.Parse(formatDateLayout, expiredAt)
+		// if err != nil {
+		// 	return nil, err
+		// }
+		// thisTimeString := time.Now().Format(formatDateLayout)
+		// thisTime, _ := time.Parse(formatDateLayout, thisTimeString)
+		// diffTime := t.Sub(thisTime).Seconds()
 
-		if diffTime > 0 {
-			return claims, nil
-		} else {
-			return nil, errors.New("expired token")
-		}
+		// if diffTime > 0 {
+		// 	return claims, nil
+		// } else {
+		// 	return nil, errors.New("expired token")
+		// }
 
 	} else {
 		return nil, err
 	}
+	return claims, nil
 }

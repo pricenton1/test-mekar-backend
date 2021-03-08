@@ -62,12 +62,8 @@ func (u *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 		}
 		isValid := utils.CompareEncrypt(authTemp.Password, []byte(account.Password))
 		if isValid {
-			token, err := utils.JwtEncoder(authTemp.Email, "Rahasia")
-			if err != nil {
-				utils.ResponseWithoutPayload(w, http.StatusBadRequest)
-			}
-			authTemp.Token = model.Token{Key: token}
 			utils.Response(w, http.StatusOK, authTemp)
+			r.Header.Add("email", authTemp.Email)
 		} else {
 			utils.ResponseWithoutPayload(w, http.StatusUnauthorized)
 		}
